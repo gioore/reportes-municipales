@@ -62,6 +62,12 @@ El panel usa cuentas individuales de Firebase Authentication mediante correo y c
 El script `node scripts/seed-ejemplos.js` carga tres reportes de ejemplo con fotografías directamente en Firestore;
 las imágenes no se suben al repositorio.
 
+## Serie III (IA)
+
+La aplicación también integra los tres servicios de IA del examen: sentimiento del texto, análisis de imagen y GPT
+para resumen, área y prioridad. Los resultados se guardan en el reporte y se muestran en el panel. Para recalcular
+reportes existentes usa `node scripts/analizar-existentes.js` con `COURSE_AI_JSON` configurado.
+
 Los ejemplos actuales usan fotografías públicas obtenidas de Wikimedia Commons y de un medio de noticias, y guardan
 la URL de origen en el campo `fuenteImagen` de cada reporte. Las fotografías adjuntas originalmente fueron retiradas.
 
