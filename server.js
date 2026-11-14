@@ -10,6 +10,7 @@ import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 const projectId = process.env.FIREBASE_PROJECT_ID;
 const password = process.env.ADMIN_PASSWORD;
 const port = Number(process.env.PORT || 3000);
+const host = process.env.HOST || '127.0.0.1';
 const emulator = process.env.FIRESTORE_EMULATOR_HOST;
 
 if (!projectId || !password || password.length < 12) {
@@ -196,7 +197,7 @@ app.use((error, _req, res, next) => {
 });
 
 if (!process.env.VERCEL) {
-  app.listen(port, '127.0.0.1', () => console.log('Reportes municipales · http://127.0.0.1:' + port));
+  app.listen(port, host, () => console.log('Reportes municipales · http://' + host + ':' + port));
 }
 
 export default app;

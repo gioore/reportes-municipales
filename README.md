@@ -49,6 +49,10 @@ Configura `COURSE_AI_JSON` en el entorno del servidor para activar los servicios
 
 El servidor guarda el reporte antes de analizarlo. El panel filtra por sentimiento, muestra las puntuaciones de confianza y presenta las etiquetas de imagen con una confianza de al menos 75 %. GPT usa esos resultados y la descripción original para sugerir resumen, área y prioridad. El panel indica si algún análisis quedó incompleto.
 
-## Alojamiento
+## Publicar en Render
 
-Vercel detecta `server.js` como la entrada de Express y sirve las pantallas desde `public/`. Configura `FIREBASE_PROJECT_ID`, `FIREBASE_SERVICE_ACCOUNT_JSON`, `ADMIN_PASSWORD` y `COURSE_AI_JSON` en el entorno de despliegue. `FIREBASE_SERVICE_ACCOUNT_JSON` contiene el JSON de la cuenta de servicio de Firestore. Comparte la contraseña municipal por separado con quien necesite revisar el panel.
+En [Render](https://dashboard.render.com/), crea un Blueprint desde la rama `main` de este repositorio. El archivo `render.yaml` configura un servicio web gratuito que sirve el portal, el panel y la API bajo el mismo dominio.
+
+Durante la creación, configura `FIREBASE_PROJECT_ID`, `FIREBASE_SERVICE_ACCOUNT_JSON`, `ADMIN_PASSWORD` y `COURSE_AI_JSON` en Render. `FIREBASE_SERVICE_ACCOUNT_JSON` contiene el JSON de la cuenta de servicio de Firestore. Comparte la contraseña municipal por separado con quien necesite revisar el panel.
+
+Cuando el servicio esté activo, abre el dominio asignado para usar el portal. El panel está en `/panel.html`. Registra una queja de prueba con foto y abre el folio en el panel para verificar la persistencia y los análisis.

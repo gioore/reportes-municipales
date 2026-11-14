@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: reportes-municipales
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 24.15.0
+      - key: HOST
+        value: 0.0.0.0
+      - key: PUBLIC_HTTPS
+        value: "true"
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_SERVICE_ACCOUNT_JSON
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: COURSE_AI_JSON
+        sync: false
