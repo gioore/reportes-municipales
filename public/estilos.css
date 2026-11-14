@@ -58,3 +58,7 @@ button.secondary:hover { background: #e5eee8; }
   .columns { grid-template-columns: 1fr; }
   .top nav { min-height: 3.6rem; font-size: .9rem; }
 }
+
+select { font: inherit; color: var(--accent); background: #fff; border: 1px solid var(--border); border-radius: .5rem; padding: .55rem; }
+.analysis { margin-top: 1.5rem; border-top: 1px solid var(--border); }
+.analysis p + p { margin-top: .45rem; }

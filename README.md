@@ -1,6 +1,6 @@
 # Reportes municipales
 
-Aplicación de las Series I y II de Desarrollo y Diseño Web. El portal ciudadano registra una queja con fotografía y entrega un folio. El panel municipal consulta en Firestore los registros guardados y muestra la descripción y la fotografía de cada reporte.
+Aplicación de las Series I, II y III de Desarrollo y Diseño Web. El portal ciudadano registra una queja con fotografía y entrega un folio. El panel municipal consulta en Firestore los registros guardados y muestra la descripción y la fotografía de cada reporte.
 
 ## Demostración local en Windows
 
@@ -25,7 +25,7 @@ Consulta la [configuración oficial de Firebase Admin](https://firebase.google.c
 
 ## Probar la entrega
 
-1. En el portal, escribe una descripción como «Hay una fuga de agua frente a la escuela». Adjunta un JPG, PNG o WebP válido de hasta 8 MB y envíalo.
+1. En el portal, escribe una descripción como «Hay una fuga de agua frente a la escuela». Adjunta un JPG, PNG o WebP válido de hasta 4 MB y envíalo.
 2. Copia el folio que devuelve el portal después de guardar.
 3. Entra al panel, selecciona ese folio y verifica la descripción y la fotografía. Recarga el panel y confirma que el reporte sigue en el listado.
 4. Prueba a enviar sin foto y a consultar un reporte después de cerrar sesión.
@@ -41,4 +41,14 @@ Consulta la [configuración oficial de Firebase Admin](https://firebase.google.c
 | `GET /api/reportes/:id` | Entrega la descripción, la fecha y la ruta de la fotografía. Requiere sesión. |
 | `GET /api/reportes/:id/foto` | Devuelve el JPEG guardado. Requiere sesión. |
 
-Firestore guarda un documento por reporte en la colección `reportes`, con ID como folio, descripción original, fecha del servidor y fotografía JPEG de hasta 300 KiB. El servidor ajusta el tamaño y la orientación de la imagen antes del guardado. El listado consulta un conjunto de campos que excluye los bytes de la imagen. Las sesiones municipales duran dos horas y el servidor las mantiene en memoria.
+Firestore guarda un documento por reporte en la colección `reportes`, con ID como folio, descripción original, fecha del servidor y fotografía JPEG de hasta 300 KiB. El servidor ajusta el tamaño y la orientación de la imagen antes del guardado. El listado consulta un conjunto de campos que excluye los bytes de la imagen. Las sesiones municipales duran dos horas y sus identificadores se guardan como hashes en Firestore.
+
+## Análisis de los reportes
+
+Configura `COURSE_AI_JSON` en el entorno del servidor para activar los servicios del curso. El objeto contiene `sentimiento`, `vision` y `gpt`, cada uno con `endpoint` y `key`. GPT requiere además `deployment`. Conserva esta variable en la configuración privada del alojamiento.
+
+El servidor guarda el reporte antes de analizarlo. El panel filtra por sentimiento, muestra las puntuaciones de confianza y presenta las etiquetas de imagen con una confianza de al menos 75 %. GPT usa esos resultados y la descripción original para sugerir resumen, área y prioridad. El panel indica si algún análisis quedó incompleto.
+
+## Alojamiento
+
+Vercel detecta `server.js` como la entrada de Express y sirve las pantallas desde `public/`. Configura `FIREBASE_PROJECT_ID`, `FIREBASE_SERVICE_ACCOUNT_JSON`, `ADMIN_PASSWORD` y `COURSE_AI_JSON` en el entorno de despliegue. `FIREBASE_SERVICE_ACCOUNT_JSON` contiene el JSON de la cuenta de servicio de Firestore. Comparte la contraseña municipal por separado con quien necesite revisar el panel.

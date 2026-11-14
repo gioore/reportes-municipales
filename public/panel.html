@@ -31,6 +31,14 @@
       <div class="bar">
         <h2 id="titulo-lista">Reportes registrados</h2>
         <div class="actions">
+          <label for="filtro-sentimiento">Sentimiento</label>
+          <select id="filtro-sentimiento">
+            <option value="">Todos</option>
+            <option value="negative">Negativo</option>
+            <option value="neutral">Neutral</option>
+            <option value="positive">Positivo</option>
+            <option value="mixed">Mixto</option>
+          </select>
           <button type="button" class="secondary" id="actualizar">Actualizar</button>
           <button type="button" class="secondary" id="salir">Cerrar sesión</button>
         </div>
@@ -50,6 +58,7 @@
             <h4>Fotografía adjunta</h4>
             <p id="error-foto" role="status" hidden></p>
             <img id="fotografia" class="report-photo" alt="Fotografía adjunta por el ciudadano" hidden>
+            <div id="analisis" class="analysis" hidden></div>
           </div>
         </article>
       </div>

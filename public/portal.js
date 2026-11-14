@@ -19,8 +19,8 @@ entradaFoto.addEventListener('change', () => {
   aviso(resultado);
   const foto = entradaFoto.files[0];
   if (!foto) return;
-  if (foto.size > 8 * 1024 * 1024) {
-    aviso(resultado, 'Elige una foto de hasta 8 MB.', true);
+  if (foto.size > 4 * 1024 * 1024) {
+    aviso(resultado, 'Elige una foto de hasta 4 MB.', true);
     entradaFoto.value = '';
     return;
   }

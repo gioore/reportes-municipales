@@ -7,3 +7,6 @@ datos-emulador/
 *debug.log*
 *service-account*.json
 *firebase-adminsdk*.json
+.vercel/
+
+.vercel
