@@ -9,11 +9,10 @@ const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
 if (!projectId || !serviceAccount) throw new Error('Configura FIREBASE_PROJECT_ID y FIREBASE_SERVICE_ACCOUNT_JSON.');
 const app = getApps()[0] || initializeApp({ projectId, credential: cert(JSON.parse(serviceAccount)) });
 const reportes = getFirestore(app).collection('reportes');
-const base = process.env.EXAMPLE_IMAGE_DIR || 'C:/Users/gerso/Downloads/WhatsApp Unknown 2026-11-14 at 8.58.42 AM';
 const entradas = [
-  ['WhatsApp Image 2026-11-14 at 8.57.45 AM (1).jpeg', 'Se observa una zona de basura acumulada junto a la vía pública. Solicito recolección y limpieza del área.'],
-  ['WhatsApp Image 2026-11-14 at 8.57.45 AM (2).jpeg', 'Hay un desperfecto visible en la calle que puede afectar el paso de peatones y vehículos.'],
-  ['WhatsApp Image 2026-11-14 at 8.57.45 AM.jpeg', 'Se reporta una condición que requiere revisión del personal municipal en el área.']
+  ['https://commons.wikimedia.org/wiki/Special:FilePath/Street_Garbage.jpg', 'Se observa una zona de basura acumulada junto a la vía pública. Solicito recolección y limpieza del área.'],
+  ['https://commons.wikimedia.org/wiki/Special:FilePath/Potholes.jpg', 'Hay un desperfecto visible en la calle que puede afectar el paso de peatones y vehículos.'],
+  ['https://sitel.com.mk/sites/default/files/video/teaser-images/2025/january/martin-422860.jpg', 'Se reporta una condición de limpieza urbana que requiere revisión del personal municipal.']
 ];
 
 async function prepararFoto(buffer) {
@@ -24,11 +23,13 @@ async function prepararFoto(buffer) {
   throw new Error('No se pudo comprimir la imagen a 300 KiB.');
 }
 
-for (const [archivo, descripcion] of entradas) {
-  const foto = await prepararFoto(await readFile(`${base}/${archivo}`));
-  const reporte = await reportes.add({ descripcion, foto, fecha: FieldValue.serverTimestamp(), origen: 'ejemplo' });
+for (const [url, descripcion] of entradas) {
+  const respuesta = await fetch(url, { headers: { 'User-Agent': 'reportes-municipales-demo/1.0' } });
+  if (!respuesta.ok) throw new Error(`No se pudo descargar ${url}: ${respuesta.status}`);
+  const foto = await prepararFoto(Buffer.from(await respuesta.arrayBuffer()));
+  const reporte = await reportes.add({ descripcion, foto, fecha: FieldValue.serverTimestamp(), origen: 'ejemplo-internet', fuenteImagen: url });
   if (analisisActivo) {
     try { await reporte.update({ analisis: await analizarReporte(descripcion, foto) }); } catch (error) { console.warn('Análisis omitido:', error.code || error.name); }
   }
-  console.log(`Creado ${reporte.id}: ${archivo}`);
+  console.log(`Creado ${reporte.id}: ${url}`);
 }

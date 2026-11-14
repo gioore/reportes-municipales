@@ -62,6 +62,9 @@ El panel usa cuentas individuales de Firebase Authentication mediante correo y c
 El script `node scripts/seed-ejemplos.js` carga tres reportes de ejemplo con fotografías directamente en Firestore;
 las imágenes no se suben al repositorio.
 
+Los ejemplos actuales usan fotografías públicas obtenidas de Wikimedia Commons y de un medio de noticias, y guardan
+la URL de origen en el campo `fuenteImagen` de cada reporte. Las fotografías adjuntas originalmente fueron retiradas.
+
 ## Credenciales de demostración
 
 Para probar el panel publicado:
