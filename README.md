@@ -61,3 +61,14 @@ El panel usa cuentas individuales de Firebase Authentication mediante correo y c
 “Correo electrónico/contraseña” en Firebase Console y administra las cuentas desde Authentication > Usuarios.
 El script `node scripts/seed-ejemplos.js` carga tres reportes de ejemplo con fotografías directamente en Firestore;
 las imágenes no se suben al repositorio.
+
+## Credenciales de demostración
+
+Para probar el panel publicado:
+
+- URL: `https://reportes-municipales.onrender.com/panel.html`
+- Correo: `municipal@reportes-municipales-gioore.firebaseapp.com`
+- Contraseña: `R3portes!2026-UMG`
+
+Estas son credenciales de demostración de bajo alcance. Nunca publiques aquí la cuenta de servicio de Firebase,
+`FIREBASE_SERVICE_ACCOUNT_JSON`, `COURSE_AI_JSON` ni otras claves privadas.
