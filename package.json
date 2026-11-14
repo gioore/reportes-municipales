@@ -1,0 +1,22 @@
+{
+  "name": "reportes-municipales",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env servidor/index.js",
+    "demo": "node scripts/iniciar-demo.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "firebase-admin": "^13.10.0",
+    "multer": "^2.1.1",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "firebase-tools": "^15.0.0"
+  }
+}

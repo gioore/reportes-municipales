@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es-GT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Registra un reporte ciudadano con fotografía.">
+  <link rel="stylesheet" href="/estilos.css">
+  <script type="module" src="/portal.js"></script>
+  <title>Enviar un reporte · Atención Ciudadana</title>
+</head>
+<body>
+  <header class="top">
+    <nav class="wrap" aria-label="Navegación principal">
+      <a class="brand" href="/">Atención Ciudadana</a>
+      <a href="/panel.html">Panel municipal <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <main class="wrap portal">
+    <section class="intro" aria-labelledby="titulo">
+      <h1 id="titulo">Envía un reporte ciudadano</h1>
+      <p>Describe qué sucede, indica dónde ocurre y adjunta una fotografía para que el personal municipal pueda revisar el caso.</p>
+    </section>
+    <form id="reporte" class="card stack" method="post" action="/api/reportes" enctype="multipart/form-data">
+      <div class="field">
+        <label for="descripcion">Descripción del reporte</label>
+        <textarea id="descripcion" name="descripcion" required minlength="10" maxlength="1500" rows="5"
+          placeholder="Ejemplo: Hay una fuga de agua frente a la escuela, sobre la calle principal."
+          aria-describedby="guia-descripcion"></textarea>
+        <small id="guia-descripcion">De 10 a 1500 caracteres.</small>
+      </div>
+      <div class="field">
+        <label for="foto">Fotografía</label>
+        <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp" required aria-describedby="guia-foto">
+        <small id="guia-foto">JPG, PNG o WebP. Hasta 8 MB.</small>
+        <img id="previa" class="preview" alt="Vista previa de la fotografía seleccionada" hidden>
+      </div>
+      <div><button type="submit">Enviar reporte</button></div>
+      <p class="notice" id="resultado" role="status" hidden></p>
+    </form>
+  </main>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "indexes": [],
+  "fieldOverrides": [
+    { "collectionGroup": "reportes", "fieldPath": "foto", "indexes": [] },
+    { "collectionGroup": "reportes", "fieldPath": "descripcion", "indexes": [] }
+  ]
+}

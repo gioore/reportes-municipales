@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es-GT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/estilos.css">
+  <script type="module" src="/panel.js"></script>
+  <title>Panel municipal · Atención Ciudadana</title>
+</head>
+<body>
+  <header class="top">
+    <nav class="wrap" aria-label="Navegación principal">
+      <a class="brand" href="/">Atención Ciudadana</a>
+      <a href="/">Portal ciudadano <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <main class="wrap admin">
+    <section class="intro" aria-labelledby="titulo">
+      <h1 id="titulo">Panel municipal</h1>
+      <p>Consulta los reportes ciudadanos y revisa la fotografía de cada caso.</p>
+    </section>
+    <p class="notice" id="estado" role="status" hidden></p>
+    <form id="sesion" class="card stack login" method="post" action="/api/sesion" hidden>
+      <div class="field">
+        <label for="clave">Contraseña municipal</label>
+        <input id="clave" type="password" name="clave" autocomplete="current-password" required>
+      </div>
+      <div><button>Iniciar sesión</button></div>
+    </form>
+    <section id="panel" hidden aria-labelledby="titulo-lista">
+      <div class="bar">
+        <h2 id="titulo-lista">Reportes registrados</h2>
+        <div class="actions">
+          <button type="button" class="secondary" id="actualizar">Actualizar</button>
+          <button type="button" class="secondary" id="salir">Cerrar sesión</button>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="card list-card">
+          <p id="vacio" hidden>Aún no hay reportes.</p>
+          <ul class="reports" id="reportes"></ul>
+        </div>
+        <article class="card detail" id="detalle" aria-label="Detalle del reporte">
+          <p id="seleccion">Selecciona un reporte para ver los detalles.</p>
+          <div id="datos" hidden>
+            <h3 id="folio"></h3>
+            <time id="fecha"></time>
+            <h4>Descripción original</h4>
+            <p id="descripcion" class="description"></p>
+            <h4>Fotografía adjunta</h4>
+            <p id="error-foto" role="status" hidden></p>
+            <img id="fotografia" class="report-photo" alt="Fotografía adjunta por el ciudadano" hidden>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
