@@ -56,3 +56,8 @@ En [Render](https://dashboard.render.com/), crea un Blueprint desde la rama `mai
 Durante la creación, configura `FIREBASE_PROJECT_ID`, `FIREBASE_SERVICE_ACCOUNT_JSON`, `ADMIN_PASSWORD` y `COURSE_AI_JSON` en Render. `FIREBASE_SERVICE_ACCOUNT_JSON` contiene el JSON de la cuenta de servicio de Firestore. Comparte la contraseña municipal por separado con quien necesite revisar el panel.
 
 Cuando el servicio esté activo, abre el dominio asignado para usar el portal. El panel está en `/panel.html`. Registra una queja de prueba con foto y abre el folio en el panel para verificar la persistencia y los análisis.
+
+El panel usa cuentas individuales de Firebase Authentication mediante correo y contraseña. Activa el proveedor
+“Correo electrónico/contraseña” en Firebase Console y administra las cuentas desde Authentication > Usuarios.
+El script `node scripts/seed-ejemplos.js` carga tres reportes de ejemplo con fotografías directamente en Firestore;
+las imágenes no se suben al repositorio.

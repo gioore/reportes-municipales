@@ -76,9 +76,30 @@ const cookieOptions = {
 };
 
 app.post('/api/sesion', express.json({ limit: '2kb' }), async (req, res) => {
+  const correo = typeof req.body?.correo === 'string' ? req.body.correo.trim().toLowerCase() : '';
   const clave = req.body?.clave;
-  if (typeof clave !== 'string' || !timingSafeEqual(digest(clave), passwordDigest)) {
-    return res.status(401).json({ error: 'Contraseña incorrecta.' });
+  if (!correo || typeof clave !== 'string' || clave.length < 6) {
+    return res.status(401).json({ error: 'Correo o contraseña incorrectos.' });
+  }
+  let uid = 'legacy-admin';
+  let nombre = 'Administrador legado';
+  const webApiKey = process.env.FIREBASE_WEB_API_KEY;
+  if (webApiKey) {
+    try {
+      const respuesta = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + encodeURIComponent(webApiKey), {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: correo, password: clave, returnSecureToken: true })
+      });
+      if (!respuesta.ok) return res.status(401).json({ error: 'Correo o contraseña incorrectos.' });
+      const datos = await respuesta.json();
+      uid = datos.localId;
+      nombre = datos.email || correo;
+    } catch (error) {
+      console.error('No se pudo validar la cuenta de Firebase:', error.code || error.name);
+      return res.status(401).json({ error: 'Correo o contraseña incorrectos.' });
+    }
+  } else if (!timingSafeEqual(digest(clave), passwordDigest)) {
+    return res.status(401).json({ error: 'Correo o contraseña incorrectos.' });
   }
 
   const ahora = Date.now();
@@ -90,7 +111,7 @@ app.post('/api/sesion', express.json({ limit: '2kb' }), async (req, res) => {
     lote.delete(sesiones.doc(digest(anterior).toString('hex')));
   }
   const token = randomBytes(32).toString('hex');
-  lote.create(sesiones.doc(digest(token).toString('hex')), { vence: ahora + duracionSesion });
+  lote.create(sesiones.doc(digest(token).toString('hex')), { vence: ahora + duracionSesion, uid, nombre, correo });
   await lote.commit();
   res.cookie(sessionCookie, token, { ...cookieOptions, maxAge: duracionSesion });
   res.sendStatus(204);

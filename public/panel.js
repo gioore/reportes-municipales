@@ -189,7 +189,7 @@ sesion.addEventListener('submit', async (evento) => {
     await solicitar('/api/sesion', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ clave: porId('clave').value })
+      body: JSON.stringify({ correo: porId('correo').value, clave: porId('clave').value })
     });
     sesion.reset();
     await cargarReportes();
@@ -207,7 +207,7 @@ salir.addEventListener('click', async () => {
     await solicitar('/api/sesion', { method: 'DELETE' });
     pedirInicio();
     aviso(estado, 'Sesión cerrada.');
-    porId('clave').focus();
+    porId('correo').focus();
   } catch (error) {
     manejarError(error);
   } finally {

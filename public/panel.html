@@ -22,7 +22,11 @@
     <p class="notice" id="estado" role="status" hidden></p>
     <form id="sesion" class="card stack login" method="post" action="/api/sesion" hidden>
       <div class="field">
-        <label for="clave">Contraseña municipal</label>
+        <label for="correo">Correo de la cuenta municipal</label>
+        <input id="correo" type="email" name="correo" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="clave">Contraseña</label>
         <input id="clave" type="password" name="clave" autocomplete="current-password" required>
       </div>
       <div><button>Iniciar sesión</button></div>
