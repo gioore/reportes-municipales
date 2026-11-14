@@ -4,23 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Registra un reporte ciudadano con fotografía.">
-  <link rel="stylesheet" href="/estilos.css">
+  <link rel="stylesheet" href="/estilos.css?v=2">
   <script type="module" src="/portal.js"></script>
   <title>Enviar un reporte · Atención Ciudadana</title>
 </head>
 <body>
   <header class="top">
     <nav class="wrap" aria-label="Navegación principal">
-      <a class="brand" href="/">Atención Ciudadana</a>
-      <a href="/panel.html">Panel municipal <span aria-hidden="true">↗</span></a>
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">⌂</span>Atención Ciudadana</a>
+      <a class="nav-link" href="/panel.html">Panel municipal <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
   <main class="wrap portal">
-    <section class="intro" aria-labelledby="titulo">
-      <h1 id="titulo">Envía un reporte ciudadano</h1>
-      <p>Describe qué sucede, indica dónde ocurre y adjunta una fotografía para que el personal municipal pueda revisar el caso.</p>
+    <section class="hero" aria-labelledby="titulo">
+      <div>
+        <h1 id="titulo">Envía un reporte ciudadano</h1>
+        <p>Cuéntanos qué ocurrió y dónde. Adjunta una fotografía para que el personal municipal pueda revisar tu reporte.</p>
+      </div>
     </section>
-    <form id="reporte" class="card stack" method="post" action="/api/reportes" enctype="multipart/form-data">
+    <form id="reporte" aria-labelledby="titulo-formulario" class="card stack" method="post" action="/api/reportes" enctype="multipart/form-data">
+      <h2 id="titulo-formulario">Nuevo reporte</h2>
       <div class="field">
         <label for="descripcion">Descripción del reporte</label>
         <textarea id="descripcion" name="descripcion" required minlength="10" maxlength="1500" rows="5"
@@ -34,7 +37,7 @@
         <small id="guia-foto">JPG, PNG o WebP. Hasta 4 MB.</small>
         <img id="previa" class="preview" alt="Vista previa de la fotografía seleccionada" hidden>
       </div>
-      <div><button type="submit">Enviar reporte</button></div>
+      <div class="submit-row"><button type="submit">Enviar reporte</button></div>
       <p class="notice" id="resultado" role="status" hidden></p>
     </form>
   </main>
