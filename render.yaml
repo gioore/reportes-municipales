@@ -16,7 +16,7 @@ services:
       - key: FIREBASE_PROJECT_ID
         sync: false
       - key: FIREBASE_WEB_API_KEY
-        sync: false
+        value: "AIzaSyAICFtU9oxuua9rEYRNOsKRlR2lSbYZWlU"
       - key: FIREBASE_SERVICE_ACCOUNT_JSON
         sync: false
       - key: ADMIN_PASSWORD
